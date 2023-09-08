@@ -17,9 +17,27 @@ const PORT = process.env.PORT || 3001;
 
 const hbs = exphbs.create({ helpers });
 
-// Using handlebars engine 
+// cookie sess 
+const sess = {
+  secret: 'tecblog secret',
+  cookie: {
+      maxAge: 60 * 60 * 1000,
+      httpOnly:true,
+      secure:false,
+      sameSite:'strict',
+  },
+ 
+  store: new SequelizeStore({
+      db:sequelize,
+  }),
+
+};
 
 app.use(session(sess));
+
+// Using handlebars engine 
+
+
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
@@ -31,6 +49,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log('Now listening'));
+  app.listen(PORT, () =>
+    console.log(
+      ` Visit http://localhost:${PORT} and see Tecblog!`
+    )
+  );
 });
-
