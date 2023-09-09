@@ -1,5 +1,12 @@
 const User = require('./User');
 const Comment = require('./Comment')
+const Post = require('./posts');
 
-module.exports= { Comment}; 
-module.exports = { User };
+
+// place assoctions here 
+
+
+
+
+module.exports= { User, Comment, Post}; 
+
